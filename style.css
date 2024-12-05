@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(36, 12, 36);
+    color: orange;
+}
+
+#users-container {
+    align-items: center;
+}
+
+#name-info {
+    display: flex;
+}
+
+#username {
+    color: rgb(109, 71, 1);
+    margin-left: 10px;
+}
