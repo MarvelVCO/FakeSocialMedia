@@ -3,12 +3,9 @@ body {
     color: orange;
 }
 
-#users-container {
-    align-items: center;
-}
-
 #name-info {
     display: flex;
+    align-items: center;
 }
 
 #username {

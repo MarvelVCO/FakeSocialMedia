@@ -5,8 +5,8 @@ fetch('https://jsonplaceholder.typicode.com/users')
         $("#users-container").append(`
             <div id="user" user-id=${user.id}>
                 <div id="name-info">
-                    <h1 id="name">${user.name}</h1>
-                    <h5 id="username">@${user.username}</h3>
+                    <h3 id="name">${user.name}</h1>
+                    <a id="username" href="user/${user.username}">@${user.username}</a>
                 </div>
             </div>`)
     });
