@@ -8,7 +8,31 @@ body {
     align-items: center;
 }
 
-#username {
+#user-link {
     color: rgb(109, 71, 1);
     margin-left: 10px;
+    border: none;
+    background: none;
+}
+
+#page {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 30px;
+}
+
+#users-container {
+   grid-column: 1;
+}
+
+#selected-user-container {
+    grid-column: 2;
+}
+
+#selected-user {
+    display: flex;
+}
+
+#selected-username {
+    margin-left: 5;
 }
