@@ -2,19 +2,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Social Media</title>
+    <title>ReVibe</title>
     <link rel="stylesheet" href="style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script async src="scripts.js"></script>
 </head>
 <body>
-    <h1>HOME</h1>
-    <div id="page">
-        <div id="users-container"></div>
-        <div id="selected-user-container">
-            <div id="slected-user-info"></div>
-            <div id="selected-user-posts"></div>
-        </div>
+    <h1 id="title" onclick="goBack()">ReVibe</h1>
+    <div id="gallery-container"></div>
+    <div id="user-page-container" style="display: none;">
+        <button id="back-button" onclick="goBack()">Back⏎</button>
+        <div id="user-info"></div>
+        <div id="user-posts"></div>
     </div>
 </body>
 </html>

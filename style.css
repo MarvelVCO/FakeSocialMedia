@@ -1,38 +1,80 @@
 body {
     background-color: rgb(36, 12, 36);
     color: orange;
+    font-family: Arial, sans-serif;
 }
 
-#name-info {
-    display: flex;
-    align-items: center;
+p {
+    font-size: large;
 }
 
-#user-link {
-    color: rgb(109, 71, 1);
-    margin-left: 10px;
-    border: none;
-    background: none;
+#title {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 3px solid orange;
+    border-radius: 10px;
+    color: orange;
+    font-size: 40px;
+    text-align: center;
+    background-color: rgb(36, 12, 36);
+    border-style: inset;
+    margin-left: 20px;
+    cursor: pointer;
 }
 
-#page {
+
+#gallery-container {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
 
-#users-container {
-   grid-column: 1;
+.post, .user-post, .user-comment {
+    background-color: rgb(55, 20, 55);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-#selected-user-container {
-    grid-column: 2;
+.user-post {
+    margin-bottom: 15px;
 }
 
-#selected-user {
+button {
+    background: none;
+    border: none;
+    color: rgb(109, 71, 1);
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#user-page-container {
+    padding: 20px;
+}
+
+#post-title {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-#selected-username {
-    margin-left: 5;
+
+#user-info {
+    text-align: center;
+    background-color: rgb(40, 15, 40);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+#back-button {
+    margin-bottom: 10px;
+    color: orange;
+    font-weight: bold;
+    font-size: 30px;
+    text-decoration: none;
 }

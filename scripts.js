@@ -1,38 +1,84 @@
-fetch('https://jsonplaceholder.typicode.com/users')
-   .then(response => response.json())
-   .then(json => {
-    json.forEach(user => {
-        $("#users-container").append(`
-            <div id="user" user-id=${user.id}>
-                <div id="name-info">
-                    <h3 id="name">${user.name}</h3>
-                    <button id="user-link" onclick="openUser(${user.id})">@${user.username}</button>
-                </div>
-            </div>`)
-    });
-})
+let usersData = []
 
-async function openUser(userId) {
-    $("#selected-user-container").html(`        
-        <div id="selected-user-container">
-            <div id="selected-user-posts"></div>
-        </div>`)
-    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-    .then(response => response.json())
-    .then(json => {
-         $("#selected-user-info").append(`
-             <div id="selected-user">
-                <h1 id="selected-name">${json.name}</h1>
-                <h3 id="selected-username">@${json.username}</h3>
-             </div>`)
-    });
-    fetch(`https://jsonplaceholder.typicode.com/posts`)
-    .then(response => response.json())
-    .then(json => {
-        json.filter(a => a.userId == userId).forEach(post => 
-            $("#selected-user-posts")
-            .append(`<h1 id="selected-post-title">${post.title}</h1>
-                   <h3 id="selected-post-body">@${post.body}</h3>
-                `)
-    )});
+async function loadData() {
+    const usersResponse = await fetch('https://jsonplaceholder.typicode.com/users')
+    usersData = await usersResponse.json()
+
+    const postsResponse = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const posts = await postsResponse.json()
+
+    posts.forEach(post => {
+        const user = usersData.find(u => u.id == post.userId)
+        $("#gallery-container").append(`
+            <div class="post" onclick="showPostPage(${post.id})">
+                <button class="username-link" onclick="event.stopPropagation() showUserPage(${post.userId})">
+                    ${user.name} @${user.username}
+                </button>
+                <h1>${post.title}</h1>
+                <p>${post.body}</p>
+            </div>
+        `)
+    })
+}
+loadData()
+
+async function showUserPage(userId) {
+    const user = usersData.find(user => user.id == userId)
+    $("#gallery-container").hide()
+    $("#user-page-container").show()
+
+    $("#user-info").html(`
+        <h1>${user.name}</h1>
+        <h3>@${user.username}</h3>
+        <p>${user.email}</p>
+        <p>${user.address.city}, ${user.address.street}</p>
+    `)
+
+    const postsResponse = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+    const posts = await postsResponse.json()
+    $("#user-posts").html(`<h2>Posts:</h2>`)
+    posts.forEach(post => {
+        $("#user-posts").append(`
+            <div class="post" onclick="showPostPage(${post.id})">
+                <h3>${post.title}</h3>
+                <p>${post.body}</p>
+            </div>
+        `)
+    })
+}
+
+async function showPostPage(postId) {
+    const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+    const post = await postResponse.json()
+
+    const user = usersData.find(u => u.id == post.userId)
+    const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+    const comments = await commentsResponse.json()
+
+    $("#gallery-container").hide()
+    $("#user-page-container").show()
+
+    $("#user-info").html(`
+        <div id="post-title">
+            <h1>${post.title}</h1>
+            <p>by <button class="username-link" onclick="showUserPage(${user.id})">${user.name} @${user.username}</button></p>
+        </div>
+        <p>${post.body}</p>
+    `)
+
+    $("#user-posts").html(`<h2>Comments:</h2>`)
+    comments.forEach(comment => {
+        $("#user-posts").append(`
+            <div class="user-comment">
+                <h4>${comment.name}</h4>
+                <p>${comment.body}</p>
+                <p><i>by ${comment.email}</i></p>
+            </div>
+        `)
+    })
+}
+
+function goBack() {
+    $("#user-page-container").hide()
+    $("#gallery-container").show()
 }
